@@ -1,4 +1,5 @@
 const express = require("express");
+const auth = require("../../middleware/auth");
 
 const router = express.Router();
 
@@ -16,8 +17,8 @@ router.get("/", (req, res) => {
 
 // @route   POST api/items
 // @desc    Create an Item
-// @access  Public
-router.post("/", (req, res) => {
+// @access  Private
+router.post("/", auth, (req, res) => {
 	const newItem = new Item({
 		name: req.body.name,
 	});
@@ -25,19 +26,19 @@ router.post("/", (req, res) => {
 	newItem
 		.save()
 		.then(item => res.json(item))
-		.catch(err => res.status(404).json({ error: "Item was not saved." }));
+		.catch(err => res.status(404).json({ message: "Item was not saved." }));
 });
 
 // @route   DELETE api/items/:id
 // @desc    Delete an Item
-// @access  Public
-router.delete("/:id", (req, res) => {
+// @access  Private
+router.delete("/:id", auth, (req, res) => {
 	Item.findById(req.params.id)
 		.then(item => {
 			item
 				.remove()
 				.then(() => res.json({ success: true, message: "Item was deleted successfully." }))
-				.catch(err => res.status(404).json({ error: "Item not deleted." }));
+				.catch(err => res.status(404).json({ message: "Item not deleted." }));
 		})
 		.catch(err => res.status(404).json({ success: false, message: "Item was not found." }));
 });
