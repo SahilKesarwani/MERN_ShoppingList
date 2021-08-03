@@ -76,14 +76,18 @@ export class RegisterModal extends Component {
 						{this.state.message ? <Alert color="danger">{this.state.message}</Alert> : null}
 						<Form onSubmit={this.onSubmit}>
 							<FormGroup>
-								<Label for="name">Name</Label>
-								<Input type="text" name="name" id="name" placeholder="Name" autoComplete="off" className="mb-3" onChange={this.onInputChange} />
+								<Label for="name">
+									Name <span style={{ fontSize: "0.6rem" }}>(max 20 characters)</span>
+								</Label>
+								<Input type="text" name="name" id="name" placeholder="Name" autoComplete="off" maxLength="20" className="mb-3" onChange={this.onInputChange} />
 
 								<Label for="email">Email</Label>
 								<Input type="email" name="email" id="email" placeholder="Email" className="mb-3" onChange={this.onInputChange} />
 
-								<Label for="password">Password</Label>
-								<Input type="password" name="password" id="password" placeholder="Password" className="mb-3" onChange={this.onInputChange} />
+								<Label for="password">
+									Password <span style={{ fontSize: "0.6rem" }}>(should more than 6 characters)</span>
+								</Label>
+								<Input type="password" name="password" id="password" placeholder="Password" minLength="6" className="mb-3" onChange={this.onInputChange} />
 
 								<Button color="dark" style={{ marginTop: "2rem" }} block>
 									Register

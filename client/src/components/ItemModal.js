@@ -12,6 +12,7 @@ export class ItemModal extends Component {
 
 	static propTypes = {
 		isAuthenticated: PropTypes.bool,
+		user: PropTypes.object,
 	};
 
 	toggle = () => {
@@ -30,8 +31,11 @@ export class ItemModal extends Component {
 
 		const newItem = {
 			name: this.state.name,
+			userId: this.props.user.id,
 		};
 		this.props.addItem(newItem);
+
+		this.setState({ name: "" });
 
 		this.toggle();
 	};
@@ -68,6 +72,7 @@ export class ItemModal extends Component {
 
 const mapStateToProps = state => ({
 	item: state.item,
+	user: state.auth.user,
 	isAuthenticated: state.auth.isAuthenticated,
 });
 

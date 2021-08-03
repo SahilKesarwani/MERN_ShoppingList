@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const config = require("config");
+require("dotenv").config();
 const auth = require("../../middleware/auth");
 
 const router = express.Router();
@@ -31,7 +31,7 @@ router.post("/", (req, res) => {
 				.then(isMatch => {
 					if (!isMatch) return res.status(400).json({ message: "Invalid credentials." });
 
-					jwt.sign({ id: user.id }, config.get("jwtSecret"), { expiresIn: 604800 }, (err, token) => {
+					jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: 604800 }, (err, token) => {
 						if (err) throw err;
 
 						res.json({

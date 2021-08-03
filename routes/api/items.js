@@ -6,11 +6,12 @@ const router = express.Router();
 // Item Model
 const Item = require("../../models/Item");
 
-// @route   GET api/items
+// @route   GET api/items/:userId
 // @desc    Get All Items
-// @access  Public
-router.get("/", (req, res) => {
-	Item.find()
+// @access  Private
+router.get("/:userId", auth, (req, res) => {
+	const userId = req.params.userId;
+	Item.find({ userId })
 		.sort({ date: -1 })
 		.then(items => res.json(items));
 });
@@ -21,6 +22,7 @@ router.get("/", (req, res) => {
 router.post("/", auth, (req, res) => {
 	const newItem = new Item({
 		name: req.body.name,
+		userId: req.body.userId,
 	});
 
 	newItem
