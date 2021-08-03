@@ -28,15 +28,22 @@ export class ItemModal extends Component {
 
 	onSubmit = e => {
 		e.preventDefault();
-
-		const newItem = {
-			name: this.state.name,
-			userId: this.props.user.id,
-		};
+		let newItem = {};
+		if (this.props.user.id) {
+			newItem = {
+				name: this.state.name,
+				userId: this.props.user.id,
+			};
+		}
+		if (this.props.user._id) {
+			newItem = {
+				name: this.state.name,
+				userId: this.props.user._id,
+			};
+		}
 		this.props.addItem(newItem);
 
 		this.setState({ name: "" });
-
 		this.toggle();
 	};
 

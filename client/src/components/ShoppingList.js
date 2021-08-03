@@ -20,11 +20,19 @@ export class ShoppingList extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (this.props.isAuthenticated !== prevProps.isAuthenticated) {
-			if (this.props.isAuthenticated) {
-				this.props.getItems(this.props.user.id);
+		const { isAuthenticated, user } = this.props;
+		if (isAuthenticated !== prevProps.isAuthenticated) {
+			if (isAuthenticated) {
+				if (user) {
+					if (user.id) this.props.getItems(user.id);
+				}
 			} else {
 				this.props.clearItems();
+			}
+		}
+		if (user !== prevProps.user && isAuthenticated) {
+			if (user) {
+				if (user._id) this.props.getItems(user._id);
 			}
 		}
 	}
@@ -40,7 +48,7 @@ export class ShoppingList extends Component {
 				<ListGroup>
 					<TransitionGroup className="shopping-list">
 						{items.map(({ _id, name }) => (
-							<CSSTransition key={_id} timeout={500} classNames="fade">
+							<CSSTransition key={_id} classNames="fade">
 								<ListGroupItem>
 									<Button className="remove-btn mr-2" color="danger" size="sm" onClick={() => this.onDeleteItem(_id)}>
 										&times;
