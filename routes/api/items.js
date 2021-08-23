@@ -31,6 +31,21 @@ router.post("/", auth, (req, res) => {
 		.catch(err => res.status(404).json({ message: "Item was not saved." }));
 });
 
+// @route   PATCH api/items/:userId
+// @desc    Edit an Item
+// @access  Private
+router.patch("/:id", auth, (req, res) => {
+	Item.findByIdAndUpdate(
+		req.params.id,
+		{
+			name: req.body.name,
+		},
+		{ new: true }
+	)
+		.then(item => res.json(item))
+		.catch(err => res.status(404).json({ message: "Item was not saved." }));
+});
+
 // @route   DELETE api/items/:id
 // @desc    Delete an Item
 // @access  Private

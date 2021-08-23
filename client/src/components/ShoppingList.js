@@ -3,6 +3,7 @@ import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { getItems, deleteItem, clearItems } from "../actions/itemActions";
+import EditItemModal from "./EditItemModal";
 import PropTypes from "prop-types";
 
 export class ShoppingList extends Component {
@@ -53,6 +54,7 @@ export class ShoppingList extends Component {
 									<Button className="remove-btn mr-2" color="danger" size="sm" onClick={() => this.onDeleteItem(_id)}>
 										&times;
 									</Button>
+									<EditItemModal id={_id} name={name} />
 									{name}
 								</ListGroupItem>
 							</CSSTransition>

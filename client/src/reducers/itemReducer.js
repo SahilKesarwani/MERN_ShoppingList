@@ -1,4 +1,4 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, CLEAR_ITEMS } from "../actions/types";
+import { GET_ITEMS, ADD_ITEM, EDIT_ITEM, DELETE_ITEM, ITEMS_LOADING, CLEAR_ITEMS } from "../actions/types";
 
 const initialState = {
 	items: [],
@@ -18,6 +18,12 @@ const itemReducer = (state = initialState, action) => {
 			return {
 				...state,
 				items: [action.payload, ...state.items],
+			};
+
+		case EDIT_ITEM:
+			return {
+				...state,
+				items: state.items.map(item => (item._id === action.payload._id ? action.payload : item)),
 			};
 
 		case ITEMS_LOADING:
