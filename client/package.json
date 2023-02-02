@@ -16,6 +16,7 @@
 		"reactstrap": "^8.9.0",
 		"redux": "^4.1.0",
 		"redux-thunk": "^2.3.0",
+		"shopping_list": "file:..",
 		"web-vitals": "^1.1.2"
 	},
 	"scripts": {
